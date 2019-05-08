@@ -1,0 +1,24 @@
+     <h3>Board Names</h3>
+        <ul>
+            {{#each boards}}
+              <li>
+                  {{this.board_name}}
+              </li>
+            {{/each}}
+        </ul>
+
+        <ul>
+            {{#each 0}}
+              <li>
+                  {{this.task}}
+              </li>
+            {{/each}}
+        </ul>
+
+        <form action="/newBoard" method="POST">
+            <div class="form-group">
+                <input type="text" name="board_name" placeholder="Add new board here" class="form-control">
+            </div>
+            <button type="submit">Add New board</button>
+        </form>
+    </div>
