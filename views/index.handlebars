@@ -1,24 +1,31 @@
-     <h3>Board Names</h3>
+     <h3>{{boardName}}</h3>
+
         <ul>
-            {{#each boards}}
+            {{#each list}}
               <li>
-                  {{this.board_name}}
+                  {{this.lists}}
               </li>
             {{/each}}
         </ul>
 
         <ul>
-            {{#each 0}}
-              <li>
-                  {{this.task}}
-              </li>
+            {{#each task}}
+                <li>
+                    <p>{{this.task_title}}</p>
+                    <p>{{this.task_priority}}</p>
+                    <p>{{this.created_date}}</p>
+                    <p>{{this.due_date}}</p>
+                    <p>{{this.assigned_to}}</p>
+                    <p>{{this.task_description}}</p>
+                </li>
             {{/each}}
         </ul>
 
-        <form action="/newBoard" method="POST">
+
+        <form action="/newlist" method="POST">
             <div class="form-group">
-                <input type="text" name="board_name" placeholder="Add new board here" class="form-control">
+                <input type="text" name="board_name" placeholder="Add new list here" class="form-control">
             </div>
-            <button type="submit">Add New board</button>
+            <button type="submit">Add New List</button>
         </form>
     </div>

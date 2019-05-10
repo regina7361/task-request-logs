@@ -1,0 +1,14 @@
+ <h3>boards</h3>
+
+    {{#each boards}}
+        <form action="/board/{{this.board_name}}" method="GET">
+            <button type="submit">{{this.board_name}}</button>
+        </form>
+    {{/each}}
+        
+    <form action="/newBoard" method="POST">
+        <div class="form-group">
+            <input type="text" name="board_name" placeholder="Add new board here" class="form-control">
+        </div>
+        <button type="submit">Add New board</button>
+    </form>

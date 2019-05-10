@@ -3,14 +3,32 @@ let connection = require("./connection")
 let orm = {
 
     //selectAll()
-    selectAllBoard: function (db, callback) {
-        connection.query('SELECT * FROM ' + db + ";", function (err, result) 
+    selectAll: function (table, callback) {
+        connection.query('SELECT * FROM ' + table + ";", function (err, result) 
         {
             if (err) throw err;
-            //console.log("orm", result)
             callback (result);
         });
     },
+
+    //selectAll()
+    selectList: function (board, callback) {
+        connection.query('SELECT * FROM lists WHERE board_name = "' + board +'";', function (err, result) 
+        {
+            if (err) throw err;
+            callback (result);
+        });
+    },
+
+    //selectAll()
+    selectTask: function (board, callback) {
+        connection.query('SELECT * FROM tasks WHERE board_name = "' + board +'";', function (err, result) 
+        {
+            if (err) throw err;
+            callback (result);
+        });
+    },
+
     //insertOne()
     insertBorad: function (db, board_name, callback) {
         connection.query('INSERT INTO ' + db + ' SET ?;', 
@@ -22,13 +40,16 @@ let orm = {
             callback(result);
         });
     },
-    //selectAll()
-    selectAllTask: function (db, callback) {
-        connection.query('SELECT * FROM ' + db + ";", function (err, result) 
+    //insertOne()
+    insertList (db, list, board_name, callback) {
+        connection.query('INSERT INTO ' + db + ' SET ?;', 
+        {   
+            lists: list,
+            board_name: board_name,
+        },function (err, result) 
         {
             if (err) throw err;
-            //console.log("orm", result)
-            callback (result);
+            callback(result);
         });
     },
     //insertOne()

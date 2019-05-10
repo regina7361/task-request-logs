@@ -1,0 +1,31 @@
+{
+  "name": "task-request-log",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm run lint",
+    "lint": "eslint **/*.js --quiet",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tommyyxou/Task-Request-Log---Chocolate-Crickets-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tommyyxou/Task-Request-Log---Chocolate-Crickets-/issues"
+  },
+  "homepage": "https://github.com/tommyyxou/Task-Request-Log---Chocolate-Crickets-#readme",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "eslint": "^5.16.0",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2",
+    "mysql": "^2.17.1"
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^3.0.1"
+  }
+}

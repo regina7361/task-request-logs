@@ -12,7 +12,7 @@ require('dotenv').config()
         port: 3306,
         user: "webuser",
         password: "secretPassword",
-        database: "project2_db"
+        database: "task_management_db"
         });
 
 
