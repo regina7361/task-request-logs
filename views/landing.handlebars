@@ -1,14 +1,51 @@
- <h3>boards</h3>
+ <header>
+    <div class="navImage">
+      <i class="fas fa-atom"></i>
+      <img src="../assets/images/cricketlogo.png" height="75" width="75"/>
+      <p id="navCompName">TrL</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    {{#each boards}}
-        <form action="/board/{{this.board_name}}" method="GET">
-            <button type="submit">{{this.board_name}}</button>
-        </form>
-    {{/each}}
-        
-    <form action="/newBoard" method="POST">
+  <section class="titles">
+    <h1>Task Request Logs</h1>
+    <p>Manage home tasks and work tasks, then take over the world!</p>
+
+        <form action="/newBoard" method="POST">
         <div class="form-group">
-            <input type="text" name="board_name" placeholder="Add new board here" class="form-control">
-        </div>
-        <button type="submit">Add New board</button>
+            <input type="text" name="board_name" class="form-control" placeholder="Create New Board" aria-label="Create New Board" aria-describedby="basic-addon2">
+        </div class="input-group-append">
+          <div class="form-group">
+                <select class="form-control" id="exampleFormControlSelect1">
+                <option>Select an Image</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                </select>
+            </div>
+        <button class="btn btn-success" type="submit">Submit</button>
     </form>
+
+  </section>
+
+   <h2>Available Boards</h2>
+    
+  <section class="container-boxes">
+ 
+
+        {{#each boards}}
+        <form action="/board/{{this.board_name}}" method="GET">
+            <button class="box" type="submit"><h3>{{this.board_name}}</h3></button>
+        </form>
+        {{/each}}
+
+
+  </section>
+  </div>
+ 

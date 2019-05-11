@@ -1,5 +1,7 @@
 // Dependencies
 // =============================================================
+// Dependencies
+// =============================================================
 let express = require("express");
 let path = require("path");
 
@@ -13,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
-// app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 //Set Handlebars.
 let exphbs = require("express-handlebars");
