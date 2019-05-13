@@ -21,8 +21,8 @@ let orm = {
     },
 
     //selectAll()
-    selectTask: function (board, callback) {
-        connection.query('SELECT * FROM tasks WHERE board_name = "' + board +'";', function (err, result) 
+    selectTask: function (board, list, callback) {
+        connection.query('SELECT * FROM tasks WHERE board_name = "' + board +'" AND task_type = "' + list + '";', function (err, result) 
         {
             if (err) throw err;
             callback (result);
@@ -41,11 +41,11 @@ let orm = {
         });
     },
     //insertOne()
-    insertList (db, list, board_name, callback) {
+    insertList (db, boardName, listName, callback) {
         connection.query('INSERT INTO ' + db + ' SET ?;', 
         {   
-            lists: list,
-            board_name: board_name,
+            board_name: boardName,
+            lists: listName
         },function (err, result) 
         {
             if (err) throw err;

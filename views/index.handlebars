@@ -1,30 +1,35 @@
      <h3>{{boardName}}</h3>
 
         <ul>
-            {{#each list}}
-              <li>
-                  {{this.lists}}
-              </li>
-            {{/each}}
-        </ul>
-
-        <ul>
-            {{#each task}}
+            {{#each data}}
                 <li>
-                    <p>{{this.task_title}}</p>
-                    <p>{{this.task_priority}}</p>
-                    <p>{{this.created_date}}</p>
-                    <p>{{this.due_date}}</p>
-                    <p>{{this.assigned_to}}</p>
-                    <p>{{this.task_description}}</p>
+                    <p>{{this.task_type}}</p>
+                    {{#each this.tasks}}
+                        <div style="border: solid 2px">
+                            <P>{{this.task_title}}</P>
+                            <P>{{this.task_priority}}</P>
+                            <P>{{this.created_date}}</P>
+                            <P>{{this.due_date}}</P>
+                            <P>{{this.assigned_to}}</P>
+                            <P>{{this.task_description}}</P>
+                        </div>
+                    {{/each}}
+                    <form action="/newTask/{{boardName}}/{{this.task_type}}" method="POST">
+                        <div class="form-group">
+                        <input type="text" name="task_title" placeholder="Task title" class="form-control">
+                        <input type="text" name="task_dueDate" placeholder="Due Date" class="form-control">
+                        <input type="text" name="Assignee" placeholder="Assign Task To" class="form-control">
+                        <input type="text" name="task_description" placeholder="Task Task_description" class="form-control">
+                        </div>
+                        <button type="submit">Add New Task</button>
+                    </form>
                 </li>
             {{/each}}
         </ul>
 
-
-        <form action="/newlist" method="POST">
+        <form action="/newlist/{{boardName}}" method="POST">
             <div class="form-group">
-                <input type="text" name="board_name" placeholder="Add new list here" class="form-control">
+                <input type="text" name="list_name" placeholder="Add new list here" class="form-control">
             </div>
             <button type="submit">Add New List</button>
         </form>

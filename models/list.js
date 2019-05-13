@@ -8,8 +8,8 @@ let list = {
             callback(res);
         });
     },
-    insertList: function (board_name, callback) {
-        orm.insertList("boards", board_name, function(res){
+    insertList: function (boardName, listName, callback) {
+        orm.insertList("lists",boardName, listName, function(res){
             callback(res);
         });
     },

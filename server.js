@@ -20,8 +20,6 @@ let exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-
-
 // Starts the server to begin listening
 // =============================================================
 app.listen(PORT, function() {
