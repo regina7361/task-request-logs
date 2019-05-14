@@ -14,7 +14,6 @@ if (process.env.JAWSDB_URL) {
         password: process.env.Password,
         database: process.env.Database
         });
-   // mysql://b2c8985c6e27a5:ec1799e7@us-cdbr-iron-east-02.cleardb.net/heroku_d807133fc14176e?reconnect=true
 } else {
     connection = mysql.createConnection({
         host: 'localhost',
