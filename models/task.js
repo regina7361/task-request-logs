@@ -8,16 +8,22 @@ let task = {
             callback(res);
         });
     },
-    // insertOne: function (board_name, callback) {
-    //     orm.insertOne(board_name, task, function(res){
-    //         callback(res);
-    //     });
-    // },
-    // updateOne: function (board_name, id, callback) {
-    //     orm.updateOne(board_name, id, function(res){
-    //         callback(res);
-    //     });
-    // }
+
+
+    insertTask: function (boardName, listName, task_title, task_prioirty, due_date, assigned_to, task_description, callback) {
+        //console.log ("Task Model:",boardName, listName, task_title, task_prioirty, due_date, assigned_to, task_description);
+        orm.insertTask("tasks", boardName, listName, task_title, task_prioirty, due_date, assigned_to, task_description, function(res){
+            callback(res);
+        });
+    },
+
+    updateTask: function (boardName, listName, task_title, newListName, callback) {
+
+        console.log ("model:", boardName, listName,task_title, newListName);
+        orm.updateTask("tasks", boardName, listName, task_title, newListName, function(res){
+            callback(res);
+        });
+    }
 }
 
 module.exports = task;

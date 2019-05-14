@@ -12,13 +12,23 @@
                             <P>{{this.due_date}}</P>
                             <P>{{this.assigned_to}}</P>
                             <P>{{this.task_description}}</P>
+                            <div style="border: solid 2px">
+                                <form action="/updateTask/{{this.board_name}}/{{this.task_type}}/{{this.task_title}}" method="POST">
+                                    <select name="newListName">
+                                        {{#each ../../data}}
+                                            <option value="{{this.task_type}}">{{this.task_type}}</option>
+                                        {{/each}}
+                                    </select>
+                                    <button type="submit">Move Task</button>
+                                </form>
+                            </div>
                         </div>
                     {{/each}}
-                    <form action="/newTask/{{boardName}}/{{this.task_type}}" method="POST">
+                    <form action="/newTask/{{this.boardName}}/{{this.task_type}}" method="POST">
                         <div class="form-group">
                         <input type="text" name="task_title" placeholder="Task title" class="form-control">
                         <input type="text" name="task_dueDate" placeholder="Due Date" class="form-control">
-                        <input type="text" name="Assignee" placeholder="Assign Task To" class="form-control">
+                        <input type="text" name="assigned_to" placeholder="Assign Task To" class="form-control">
                         <input type="text" name="task_description" placeholder="Task Task_description" class="form-control">
                         </div>
                         <button type="submit">Add New Task</button>

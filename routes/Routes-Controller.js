@@ -6,14 +6,13 @@ const task = require("../models/task");
 
 //Index Redirect
 router.get('/', function(req, res) {
-    res.redirect('/index');
+    res.redirect('/home');
 });
 
 //Index Page
-router.get('/index', function(req,res){
+router.get('/home', function(req,res){
     board.selectAll(function(data) {
         boardhbsObject = {boards: data};
-        console.log (boardhbsObject);
         res.render("landing", boardhbsObject);
     });
 });
@@ -31,41 +30,38 @@ router.get('/board/:board_name', function (req,res){
     let taskArray = [];
 
     list.selectList (board, function (data){
-        listData = data
-        //console.log (listData)
+        listData = data;
+        let count = 0;
         for (let i = 0; i < listData.length; i++) {
             task.selectTask (board, listData[i].lists, function (data){
                 taskData = data;
-                //console.log (taskData)
                 let listTaskData = {
+                    boardName: board,
                     task_type: listData[i].lists,
                     tasks: taskData
-                }
+                };
                 taskArray.push(listTaskData);
-                //console.log ("For Loop:", listTaskData);
+                count++;
+                if(count === listData.length) {
+                    hbsOjectCompile();
+                };
             });
-        }
-        delaytimer();
+        };
     });
-    
-    function delaytimer () {
-        setTimeout(hbsOjectCompile, 1000);
-    }
 
     function hbsOjectCompile () {
         
         hbsObject = {
             boardName: board,
             data: taskArray
-        }
+        };
         console.log (taskArray);
         res.render ('index', hbsObject);
     };
 });
 
 //Add New List
-
-router.post('/newlist/:board', function (req, res){
+router.post('/newList/:board', function (req, res){
     let boardName = req.params.board;
     let listName = req.body.list_name;
     list.insertList(boardName, listName, function(){
@@ -73,10 +69,41 @@ router.post('/newlist/:board', function (req, res){
     });
 });
 
-// router.post('/update/:id', function(req, res){
-//     burger.updateOne([req.params.id], function(){
-//         res.redirect('/')
-//     });
-// });
+// Add New Task
+router.post('/newTask/:board/:list', function (req, res){
+    let boardName = req.params.board;
+    let listName = req.params.list;
+
+    let task_prioirty = null;
+    let task_title = req.body.task_title;
+    let task_dueDate = req.body.task_dueDate;
+    let assigned_to = req.body.assigned_to;
+    let task_description = req.body.task_description;
+
+    task.insertTask(boardName, listName, task_title, task_prioirty, task_dueDate, assigned_to, task_description, function(){
+        res.redirect(`/board/${boardName}`)
+    });
+});
+
+// Update Task
+router.post('/updateTask/:board/:list/:task_title', function (req, res){
+    let boardName = req.params.board;
+    let listName = req.params.list;
+    let task_title = req.params.task_title;
+    let newListName = req.body.newListName;
+
+    console.log ("controller:", boardName, listName,task_title, newListName);
+
+
+
+    task.updateTask(boardName, listName, task_title, newListName, function (){
+        res.redirect(`/board/${boardName}`);
+    });
+
+
+
+
+});
+
 
 module.exports = router;
