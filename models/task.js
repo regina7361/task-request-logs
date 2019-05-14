@@ -2,9 +2,9 @@ let orm = require("../config/orm")
 
 let task = {
 
-    selectTask: function (board, callback) {
-        orm.selectTask(board,function(res){
-            //console.log ('burger.js', res);
+    selectTask: function (board, list, callback) {
+        orm.selectTask(board, list, function(res){
+
             callback(res);
         });
     },
