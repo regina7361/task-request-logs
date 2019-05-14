@@ -6,16 +6,24 @@ require('dotenv').config()
 // Set the port of our application
 
 // MySQL DB Connection Information (remember to change this with our specific credentials)
-
+if (process.env.JAWSDB_URL) {
+    connection = mysql.createConnection({
+        host: process.env.Host,
+        port: process.env.Port,
+        user: process.env.Username,
+        password: process.env.Password,
+        database: process.env.Database
+        });
+   // mysql://b2c8985c6e27a5:ec1799e7@us-cdbr-iron-east-02.cleardb.net/heroku_d807133fc14176e?reconnect=true
+} else {
     connection = mysql.createConnection({
         host: 'localhost',
         port: 3306,
-        user: "webuser",
-        password: "secretPassword",
+        user: process.env.USERNAME,
+        password: process.env.PASSWORD,
         database: "task_management_db"
         });
-
-
+};
 
 // Initiate MySQL Connection.
 connection.connect(function(err) {
