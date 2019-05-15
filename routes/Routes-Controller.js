@@ -32,21 +32,25 @@ router.get('/board/:board_name', function (req,res){
     list.selectList (board, function (data){
         listData = data;
         let count = 0;
-        for (let i = 0; i < listData.length; i++) {
-            task.selectTask (board, listData[i].lists, function (data){
-                taskData = data;
-                let listTaskData = {
-                    boardName: board,
-                    task_type: listData[i].lists,
-                    tasks: taskData
-                };
-                taskArray.push(listTaskData);
-                count++;
-                if(count === listData.length) {
-                    hbsOjectCompile();
-                };
-            });
-        };
+        if (listData.length > 0) {
+            for (let i = 0; i < listData.length; i++) {
+                task.selectTask (board, listData[i].lists, function (data){
+                    taskData = data;
+                    let listTaskData = {
+                        boardName: board,
+                        task_type: listData[i].lists,
+                        tasks: taskData
+                    };
+                    taskArray.push(listTaskData);
+                    count++;
+                    if(count === listData.length) {
+                        hbsOjectCompile();
+                    };
+                });
+            };
+        } else {
+            hbsOjectCompile();
+        }
     });
 
     function hbsOjectCompile () {

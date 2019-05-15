@@ -1,5 +1,5 @@
-     <h3>{{boardName}}</h3>
-
+<h3>{{boardName}}</h3>
+    {{#if data}}
         <ul>
             {{#each data}}
                 <li>
@@ -33,12 +33,13 @@
                         <input type="text" name="task_title" placeholder="Task title" class="form-control">
                         <input type="datetime-local" name="task_dueDate" value="2019-01-01" min="2019-01-01" class="form-control">
                         <input type="text" name="assigned_to" placeholder="Assign Task To" class="form-control">
-                        <input type="text" name="task_description" placeholder="Task Task_description" class="form-control">
+                        <input type="text" name="task_description" placeholder="Task Description" class="form-control">
                         </div>
                         <button type="submit">Add New Task</button>
                     </form>
                 </li>
             {{/each}}
+    {{/if}}
         </ul>
 
         <form action="/newlist/{{boardName}}" method="POST">
