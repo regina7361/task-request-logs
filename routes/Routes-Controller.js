@@ -55,7 +55,6 @@ router.get('/board/:board_name', function (req,res){
             boardName: board,
             data: taskArray
         };
-        console.log (taskArray);
         res.render ('index', hbsObject);
     };
 });
@@ -63,7 +62,9 @@ router.get('/board/:board_name', function (req,res){
 //Add New List
 router.post('/newList/:board', function (req, res){
     let boardName = req.params.board;
+
     let listName = req.body.list_name;
+
     list.insertList(boardName, listName, function(){
         res.redirect(`/board/${boardName}`)
     });
@@ -74,7 +75,7 @@ router.post('/newTask/:board/:list', function (req, res){
     let boardName = req.params.board;
     let listName = req.params.list;
 
-    let task_prioirty = null;
+    let task_prioirty = 2;
     let task_title = req.body.task_title;
     let task_dueDate = req.body.task_dueDate;
     let assigned_to = req.body.assigned_to;
@@ -89,20 +90,22 @@ router.post('/newTask/:board/:list', function (req, res){
 router.post('/updateTask/:board/:list/:task_title', function (req, res){
     let boardName = req.params.board;
     let listName = req.params.list;
+
     let task_title = req.params.task_title;
     let newListName = req.body.newListName;
-
-    console.log ("controller:", boardName, listName,task_title, newListName);
-
-
 
     task.updateTask(boardName, listName, task_title, newListName, function (){
         res.redirect(`/board/${boardName}`);
     });
+});
 
-
-
-
+// Delete Task
+router.post('/delete/:board/:id', function (req, res){
+    let boardName = req.params.board
+    let id = req.params.id;
+    task.deleteTask(id, function (){
+        res.redirect(`/board/${boardName}`);
+    });
 });
 
 

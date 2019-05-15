@@ -18,8 +18,8 @@ if (process.env.JAWSDB_URL) {
     connection = mysql.createConnection({
         host: 'localhost',
         port: 3306,
-        user: process.env.USERNAME,
-        password: process.env.PASSWORD,
+        user: process.env.WEBSITE_USER,
+        password: process.env.WEBSITE_PASSWORD,
         database: "task_management_db"
         });
 };

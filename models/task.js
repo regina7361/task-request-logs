@@ -11,16 +11,19 @@ let task = {
 
 
     insertTask: function (boardName, listName, task_title, task_prioirty, due_date, assigned_to, task_description, callback) {
-        //console.log ("Task Model:",boardName, listName, task_title, task_prioirty, due_date, assigned_to, task_description);
         orm.insertTask("tasks", boardName, listName, task_title, task_prioirty, due_date, assigned_to, task_description, function(res){
             callback(res);
         });
     },
 
     updateTask: function (boardName, listName, task_title, newListName, callback) {
-
-        console.log ("model:", boardName, listName,task_title, newListName);
         orm.updateTask("tasks", boardName, listName, task_title, newListName, function(res){
+            callback(res);
+        });
+    },
+
+    deleteTask: function (id, callback) {
+        orm.deleteTask("tasks", id, function(res){
             callback(res);
         });
     }

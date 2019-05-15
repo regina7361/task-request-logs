@@ -59,7 +59,6 @@ let orm = {
             task_type:listName,
             task_title: task_title,
             task_priority: task_prioirty,
-            // created_date: "UTC_TIMESTAMP()",
             due_date: due_date,
             assigned_to: assigned_to,
             task_description: task_description,
@@ -74,7 +73,6 @@ let orm = {
     //updateTask()
     updateTask: function (db, boardName, listName, task_title, newListName, callback) {
 
-        console.log ("orm:", boardName, listName,task_title, newListName);
         connection.query('UPDATE ' + db + ' SET ? WHERE ? AND ? AND ?;', 
         [{
             task_type: newListName,
@@ -85,6 +83,19 @@ let orm = {
         },{
             board_name: boardName
         }],function (err, result) 
+        {
+            if (err) throw err;
+            callback(result);
+        });
+    },
+
+    //updateTask()
+    deleteTask: function (db, id, callback) {
+
+        connection.query('DELETE FROM ' + db + ' WHERE ?;', 
+        {
+            id: id
+        },function (err, result) 
         {
             if (err) throw err;
             callback(result);
