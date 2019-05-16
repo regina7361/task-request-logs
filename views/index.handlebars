@@ -1,4 +1,4 @@
-      <header>
+<header>
     <div class="navImage">
       <i class="fas fa-atom"></i>
       <img src="../assets/images/cricketlogo.png" height="75" width="75"/>
@@ -9,41 +9,82 @@
         <li><a href="http://localhost:3000/index">Home</a></li>
       </ul>
     </nav>
-  </header>
-  
-     <h3>{{boardName}}</h3>
+</header>
 
-        <ul>
-            {{#each data}}
-                <li>
-                    <p>{{this.task_type}}</p>
-                    {{#each this.tasks}}
-                        <div style="border: solid 2px">
-                            <P>{{this.task_title}}</P>
-                            <P>{{this.task_priority}}</P>
-                            <P>{{this.created_date}}</P>
-                            <P>{{this.due_date}}</P>
-                            <P>{{this.assigned_to}}</P>
-                            <P>{{this.task_description}}</P>
-                        </div>
-                    {{/each}}
-                    <form action="/newTask/{{boardName}}/{{this.task_type}}" method="POST">
-                        <div class="form-group">
-                        <input type="text" name="task_title" placeholder="Task title" class="form-control">
-                        <input type="text" name="task_dueDate" placeholder="Due Date" class="form-control">
-                        <input type="text" name="Assignee" placeholder="Assign Task To" class="form-control">
-                        <input type="text" name="task_description" placeholder="Task Task_description" class="form-control">
-                        </div>
-                        <button type="submit">Add New Task</button>
-                    </form>
-                </li>
-            {{/each}}
-        </ul>
-
-        <form action="/newlist/{{boardName}}" method="POST">
-            <div class="form-group">
-                <input type="text" name="list_name" placeholder="Add new list here" class="form-control">
-            </div>
-            <button type="submit">Add New List</button>
-        </form>
+    <div class="taskPage">
+        <h2>{{boardName}}</h2>
+            <form action="/newlist/{{boardName}}" method="POST" class="form-inline">
+                <div class="form-group" style="width: 40%">
+                <input type="text" name="list_name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Add A New List">
+                </div>
+                <button class="btn btn-success mb-2" type="submit">Submit</button>
+            </form>
     </div>
+
+    <div class="row">
+    {{#each data}}
+        <div class="container col-2">
+	        <h3>{{this.task_type}} <i class="fa fa-pencil" aria-hidden="true"></i></h3>
+	        <div>
+                <ul>
+                    {{#each this.tasks}}
+                        <li>
+                            <div style="border: solid 2px">
+                                <p>{{this.task_title}}</p>
+                                <p>{{this.task_priority}}</p>
+                                <p>{{this.created_date}}</p>
+                                <p>{{this.due_date}}</p>
+                                <p>{{this.assigned_to}}</p>
+                                <p>{{this.task_description}}</p>
+                            </div>
+                        </li>
+                    {{/each}}
+                </ul>
+    
+            <!-- task modal -->
+            <div>
+                <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Create a Task</button>
+            </div>
+    
+  
+
+    <div class="modal fade bs-example-modal-sm2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <form action="/newTask/{{../boardName}}/{{this.task_type}}" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="task_title" placeholder="Task title" class="form-control">
+                                <input type="text" name="task_dueDate" placeholder="Due Date" class="form-control">
+                                <input type="text" name="Assignee" placeholder="Assign Task To" class="form-control">
+                                <input type="text" name="task_description" placeholder="Task Task_description" class="form-control">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Task</button>
+                                {{!-- add event handler to handle event.preventDefault()--}}
+                            </div>
+                        </form>
+                    </p>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+  	        
+            </div>
+        </div> 
+  
+    {{/each}}
+		
+	</div>
+
+    
+
+
+
+
