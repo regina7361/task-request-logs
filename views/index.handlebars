@@ -22,6 +22,7 @@
     </div>
 
     <div class="row">
+    {{#if data}}
     {{#each data}}
         <div class="container col-2">
 	        <h3>{{this.task_type}} <i class="fa fa-pencil" aria-hidden="true"></i></h3>
@@ -36,6 +37,19 @@
                                 <p>{{this.due_date}}</p>
                                 <p>{{this.assigned_to}}</p>
                                 <p>{{this.task_description}}</p>
+                                    <div style="border: solid 2px">
+                                        <form action="/updateTask/{{this.board_name}}/{{this.task_type}}/{{this.task_title}}" method="POST">
+                                            <select name="newListName">
+                                                {{#each ../../data}}
+                                                    <option value="{{this.task_type}}">{{this.task_type}}</option>
+                                                {{/each}}
+                                            </select>
+                                            <button type="submit">Move Task</button>
+                                        </form>
+                                        <form action="/delete/{{this.board_name}}/{{this.id}}" method="POST">
+                                            <button type="submit" style="color:red">DELETE TASK</button>
+                                        </form>
+                                    </div>
                             </div>
                         </li>
                     {{/each}}
@@ -56,10 +70,10 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        <form action="/newTask/{{../boardName}}/{{this.task_type}}" method="POST">
+                        <form action="/newTask/{{this.boardName}}/{{this.task_type}}" method="POST">
                             <div class="form-group">
                                 <input type="text" name="task_title" placeholder="Task title" class="form-control">
-                                <input type="text" name="task_dueDate" placeholder="Due Date" class="form-control">
+                                <input type="datetime-local" name="task_dueDate" value="2019-01-01" min="2019-01-01" class="form-control">
                                 <input type="text" name="Assignee" placeholder="Assign Task To" class="form-control">
                                 <input type="text" name="task_description" placeholder="Task Task_description" class="form-control">
                             </div>
@@ -80,8 +94,9 @@
         </div> 
   
     {{/each}}
-		
-	</div>
+	{{/if}}
+
+    </div>
 
     
 
