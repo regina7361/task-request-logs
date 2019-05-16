@@ -6,7 +6,7 @@
     </div>
     <nav>
       <ul>
-        <li><a href="http://localhost:3000/index">Home</a></li>
+        <li><a href="http://localhost:3000/home">Home</a></li>
       </ul>
     </nav>
 </header>
@@ -25,7 +25,7 @@
     {{#if data}}
     {{#each data}}
         <div class="container col-2">
-	        <h3>{{this.task_type}} <i class="fa fa-pencil" aria-hidden="true"></i></h3>
+	        <h5>{{this.task_type}} <i class="fa fa-pencil" aria-hidden="true"></i></h5>
 	        <div>
                 <ul>
                     {{#each this.tasks}}
@@ -54,52 +54,58 @@
                         </li>
                     {{/each}}
                 </ul>
-    
-            <!-- task modal -->
-            <div>
-                <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Create a Task</button>
-            </div>
-    
-  
-
-    <div class="modal fade bs-example-modal-sm2">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+             <!-- task modal -->
+                <div>
+                    <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2" onclick="createTask('{{this.task_type}}');">Create a Task</button>
                 </div>
-                <div class="modal-body">
-                    <p>
-                        <form action="/newTask/{{this.boardName}}/{{this.task_type}}" method="POST">
-                            <div class="form-group">
-                                <input type="text" name="task_title" placeholder="Task title" class="form-control">
-                                <input type="datetime-local" name="task_dueDate" value="2019-01-01" min="2019-01-01" class="form-control">
-                                <input type="text" name="Assignee" placeholder="Assign Task To" class="form-control">
-                                <input type="text" name="task_description" placeholder="Task Task_description" class="form-control">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save Task</button>
-                                {{!-- add event handler to handle event.preventDefault()--}}
-                            </div>
-                        </form>
-                    </p>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
   	        
             </div>
         </div> 
-  
+             
+
     {{/each}}
 	{{/if}}
 
     </div>
-
+<div class="modal fade bs-example-modal-sm2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <form id="modalForm" action="/newTask/{{this.boardName}}" method="POST">
+                    <input type="hidden" id="task_type" name="task_type">
+                        <div class="form-group">
+                            <input type="text" name="task_title" placeholder="Task title" class="form-control">
+                            <input type="datetime-local" name="task_dueDate" value="2019-01-01" min="2019-01-01" class="form-control">
+                            <input type="text" name="Assignee" placeholder="Assign Task To" class="form-control">
+                            <input type="text" name="task_description" placeholder="Task Task_description" class="form-control">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="saveTask('{{this.task_type}}');">Save Task</button>
+                        </div>
+                    </form>
+                </p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
     
+<script>
+    function createTask(task_type){
+        console.log("hello world",task_type);
+        window.task_type = task_type;
+    }
 
+    function saveTask(){
+        console.log("hello world",window.task_type);
+        document.getElementById("task_type").value = window.task_type;
+        document.getElementById("modalForm").submit();
+    }
+</script>
 
 
 

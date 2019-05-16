@@ -59,6 +59,7 @@ router.get('/board/:board_name', function (req,res){
             boardName: board,
             data: taskArray
         };
+        console.log(hbsOjectCompile);
         res.render ('index', hbsObject);
     };
 });
@@ -74,19 +75,14 @@ router.post('/newList/:board', function (req, res){
     });
 });
 
-<<<<<<< HEAD
-// router.post('/update/:id', function(req, res){
-//     burger.updateOne([req.params.id], function(){
-//         res.redirect('/')
-//     });
-// });
- 
-=======
 // Add New Task
-router.post('/newTask/:board/:list', function (req, res){
+router.post('/newTask/:board', function (req, res){
     let boardName = req.params.board;
-    let listName = req.params.list;
-
+    let listName = req.body.task_type;
+    console.log("Board", boardName);
+    console.log("List", listName);
+    console.log(req.body.task_type);
+    console.log("Body", req.body);
     let task_prioirty = 2;
     let task_title = req.body.task_title;
     let task_dueDate = req.body.task_dueDate;
@@ -121,5 +117,4 @@ router.post('/delete/:board/:id', function (req, res){
 });
 
 
->>>>>>> a13f2045a783a9bbc46d98b5ac5b8e0cc2412205
 module.exports = router;
