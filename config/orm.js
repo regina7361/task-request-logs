@@ -89,12 +89,37 @@ let orm = {
         });
     },
 
-    //updateTask()
+    //deleteTask()
     deleteTask: function (db, id, callback) {
 
         connection.query('DELETE FROM ' + db + ' WHERE ?;', 
         {
             id: id
+        },function (err, result) 
+        {
+            if (err) throw err;
+            callback(result);
+        });
+    },
+
+    //Verify Username()
+
+    checkUser: function (db, userName, callback) {
+        connection.query('SELECT * FROM ' + db + ' WHERE userName LIKE "' + userName + '";', 
+        function (err, result) 
+        {
+            if (err) throw err;
+            callback(result);
+        });
+    },
+
+    //newUser()
+    insertUser: function (db, userName, userPassword, callback) {
+
+        connection.query('INSERT INTO ' + db + ' SET ?;', 
+        {
+            userName: userName,
+            userPassword: userPassword
         },function (err, result) 
         {
             if (err) throw err;

@@ -3,10 +3,61 @@ const router = express.Router();
 const board = require("../models/board");
 const list = require("../models/list");
 const task = require("../models/task");
+const user = require("../models/user");
+
+// router.get('*', function(req, res) {
+//     res.send("404: There is not enough Felipe to go around!")
+// });
 
 //Index Redirect
 router.get('/', function(req, res) {
-    res.redirect('/home');
+    res.redirect('/login');
+});
+
+//Login Page
+router.get('/login', function(req, res){
+    res.render("login");
+});
+
+//Signup Page
+router.get('/signUp', function(req, res){
+    res.render("signup");
+});
+
+//Create User
+router.post('/checkUserName', function(req, res){
+    let userName = req.body.userName;
+    user.checkUser(userName, function(data){
+        if (data.length > 0) {
+            res.redirect("/usernameInUse");
+        } else {
+            res.redirect('/password/' + userName);
+        };
+    });
+});
+
+//username in use 
+router.get('/usernameInUse', function (req, res){
+    res.render("usernameInUse");
+})
+
+//Password
+router.get('/password/:username', function(req, res){
+    let username = {username: req.params.username}
+    res.render("confirmPassword", username)
+});
+
+//confirmPassword
+
+router.post('/confirmPassword', function(req, res){
+    let password = req.body.password;
+    let confirmPassword = req.body.confirmPassword;
+
+    if (password === confirmPassword) {
+        user.insertUser(confirmPassword, function(data){
+
+        });
+    }
 });
 
 //Index Page

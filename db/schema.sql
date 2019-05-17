@@ -3,6 +3,15 @@ CREATE database task_management_db;
 USE task_management_db;
 
 -- Create the table plans.
+CREATE TABLE user
+(
+id int NOT NULL AUTO_INCREMENT,
+userName VARCHAR(255) NOT NULL,
+userPassword VARCHAR(255) NOT NULL,
+PRIMARY KEY (id)
+);
+
+-- Create the table plans.
 CREATE TABLE boards
 (
 id int NOT NULL AUTO_INCREMENT,
