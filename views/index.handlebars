@@ -21,56 +21,64 @@
             </form>
     </div>
 
-    <div class="row">
+
+    <section class="taskRow">
     {{#if data}}
     {{#each data}}
-        <div class="container col-2">
-	        <h5>{{this.task_type}} <i class="fa fa-pencil" aria-hidden="true"></i></h5>
-	        <div>
-                <ul>
+        <div class="card" style="width: 19rem; margin: 2rem 1rem;">
+	        <h5 class="card-header">{{this.task_type}}
+                <button class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm2" onclick="createTask('{{this.task_type}}');" style="float:right;"> + </button>
+            </h5>
+                <ul class="list-group list-group-flush">
                     {{#each this.tasks}}
-                        <li>
-                            <div style="border: solid 2px">
-                                <p>{{this.task_title}}</p>
-                                <p>{{this.task_priority}}</p>
-                                <p>{{this.created_date}}</p>
-                                <p>{{this.due_date}}</p>
-                                <p>{{this.assigned_to}}</p>
-                                <p>{{this.task_description}}</p>
-                                    <div style="border: solid 2px">
-                                        <form action="/updateTask/{{this.board_name}}/{{this.task_type}}/{{this.task_title}}" method="POST">
-                                            <select name="newListName">
-                                                {{#each ../../data}}
-                                                    <option value="{{this.task_type}}">{{this.task_type}}</option>
-                                                {{/each}}
-                                            </select>
-                                            <button type="submit">Move Task</button>
-                                        </form>
-                                        <form action="/delete/{{this.board_name}}/{{this.id}}" method="POST">
-                                            <button type="submit" style="color:red">DELETE TASK</button>
-                                        </form>
-                                    </div>
+                        <li class="list-group-item">
+                            <div class="taskList">
+                                <button class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="showTask('{{task_title}}');">{{this.task_title}}</button>
+                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header"><h5>{{task_title}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                        <p><h6>Priority: </h6>{{this.task_priority}}</p>
+                                                        <p><h6>Due Date: </h6>{{this.due_date}}</p>
+                                                        <p><h6>Assigned To: </h6>{{this.assigned_to}}</p>
+                                                        <p><h6>Description: </h6>{{this.task_description}}</p>
+                                                            <div>
+                                                                <form action="/updateTask/{{this.board_name}}/{{this.task_type}}/{{this.task_title}}" method="POST">
+                                                                    <select name="newListName" class="custom-select" id="inputGroupSelect01" style="width: 60%;">
+                                                                        {{#each ../../data}}
+                                                                            <option value="{{this.task_type}}">{{this.task_type}}</option>
+                                                                        {{/each}}
+                                                                    </select>
+                                                                    <button type="submit" class="btn btn-primary">Move Task</button>
+                                                                        <form action="/delete/{{this.board_name}}/{{this.id}}" method="POST">
+                                                                            <button type="submit" class="btn btn-danger" style="float: right;">DELETE TASK</button>
+                                                                        </form>
+                                                                </form>
+
+                                                            </div>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal --> 
                             </div>
                         </li>
                     {{/each}}
-                </ul>
-             <!-- task modal -->
-                <div>
-                    <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2" onclick="createTask('{{this.task_type}}');">Create a Task</button>
-                </div>
-  	        
-            </div>
+                </ul>  	        
         </div> 
              
 
     {{/each}}
 	{{/if}}
 
-    </div>
+</section>
+
 <div class="modal fade bs-example-modal-sm2">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header"><h5>Create A New Task</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
@@ -78,13 +86,18 @@
                     <form id="modalForm" action="/newTask/{{this.boardName}}" method="POST">
                     <input type="hidden" id="task_type" name="task_type">
                         <div class="form-group">
-                            <input type="text" name="task_title" placeholder="Task title" class="form-control">
-                            <input type="datetime-local" name="task_dueDate" value="2019-01-01" min="2019-01-01" class="form-control">
-                            <input type="text" name="Assignee" placeholder="Assign Task To" class="form-control">
-                            <input type="text" name="task_description" placeholder="Task Task_description" class="form-control">
+                            <h6>Task Title: </h6><input type="text" name="task_title" placeholder="Enter a task title" class="form-control">
+                            <br>
+                            <h6>Priority: </h6><input type="number" name="task_priority" value=1 class="form-control">
+                            <br>
+                            <h6>Due Date: </h6><input type="datetime-local" name="task_dueDate" value="2019-01-01" min="2019-01-01" class="form-control">
+                            <br>
+                            <h6>Assign To: </h6><input type="text" name="assigned_to" placeholder="Assign this task to..." class="form-control">
+                            <br>
+                            <h6>Task Description: </h6><input type="text" name="task_description" placeholder="Add a more detailed description..." class="form-control">
+                            <br>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" onclick="saveTask('{{this.task_type}}');">Save Task</button>
                         </div>
                     </form>
@@ -93,6 +106,8 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+                            
     
 <script>
     function createTask(task_type){
@@ -105,6 +120,12 @@
         document.getElementById("task_type").value = window.task_type;
         document.getElementById("modalForm").submit();
     }
+
+        function showTask(task_title){
+        console.log("hello world",window.task_title);
+        document.getElementById("task_title").value = window.task_title;
+    }
+
 </script>
 
 

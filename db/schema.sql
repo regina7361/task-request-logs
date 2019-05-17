@@ -25,7 +25,7 @@ CREATE TABLE tasks
 id int NOT NULL AUTO_INCREMENT,
 task_type VARCHAR(255) NOT NULL,
 task_title VARCHAR(255) NOT NULL,
-task_priority INT NOT NULL DEFAULT 2,
+task_priority INT NOT NULL DEFAULT 1,
 created_date DATETIME,
 due_date DATETIME,
 assigned_to VARCHAR(255),

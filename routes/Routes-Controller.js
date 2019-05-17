@@ -79,17 +79,14 @@ router.post('/newList/:board', function (req, res){
 router.post('/newTask/:board', function (req, res){
     let boardName = req.params.board;
     let listName = req.body.task_type;
-    console.log("Board", boardName);
-    console.log("List", listName);
-    console.log(req.body.task_type);
     console.log("Body", req.body);
-    let task_prioirty = 2;
+    let task_priority = 1;
     let task_title = req.body.task_title;
     let task_dueDate = req.body.task_dueDate;
     let assigned_to = req.body.assigned_to;
     let task_description = req.body.task_description;
 
-    task.insertTask(boardName, listName, task_title, task_prioirty, task_dueDate, assigned_to, task_description, function(){
+    task.insertTask(boardName, listName, task_title, task_priority, task_dueDate, assigned_to, task_description, function(){
         res.redirect(`/board/${boardName}`)
     });
 });

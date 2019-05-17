@@ -10,8 +10,8 @@ let task = {
     },
 
 
-    insertTask: function (boardName, listName, task_title, task_prioirty, due_date, assigned_to, task_description, callback) {
-        orm.insertTask("tasks", boardName, listName, task_title, task_prioirty, due_date, assigned_to, task_description, function(res){
+    insertTask: function (boardName, listName, task_title, task_priority, due_date, assigned_to, task_description, callback) {
+        orm.insertTask("tasks", boardName, listName, task_title, task_priority, due_date, assigned_to, task_description, function(res){
             callback(res);
         });
     },
