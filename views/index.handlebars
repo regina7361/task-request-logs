@@ -45,7 +45,7 @@
                                                         <p><h6>Due Date: </h6>{{this.due_date}}</p>
                                                         <p><h6>Assigned To: </h6>{{this.assigned_to}}</p>
                                                         <p><h6>Description: </h6>{{this.task_description}}</p>
-                                                            <div>
+                                                            <div class="functionButtons">
                                                                 <form action="/updateTask/{{this.board_name}}/{{this.task_type}}/{{this.task_title}}" method="POST">
                                                                     <select name="newListName" class="custom-select" id="inputGroupSelect01" style="width: 60%;">
                                                                         {{#each ../../data}}
@@ -53,11 +53,11 @@
                                                                         {{/each}}
                                                                     </select>
                                                                     <button type="submit" class="btn btn-primary">Move Task</button>
-                                                                        <form action="/delete/{{this.board_name}}/{{this.id}}" method="POST">
-                                                                            <button type="submit" class="btn btn-danger" style="float: right;">DELETE TASK</button>
-                                                                        </form>
+                                                                        
                                                                 </form>
-
+                                                                <form action="/delete/{{this.board_name}}/{{this.id}}" method="POST">
+                                                                     <button type="submit" class="btn btn-danger" style="float: left; margin-top: 2%;">DELETE TASK</button>
+                                                                </form>
                                                             </div>
                                                 </div>
                                             </div><!-- /.modal-content -->
