@@ -1,24 +1,128 @@
-     <h3>Board Names</h3>
-        <ul>
-            {{#each boards}}
-              <li>
-                  {{this.board_name}}
-              </li>
-            {{/each}}
-        </ul>
-
-        <ul>
-            {{#each 0}}
-              <li>
-                  {{this.task}}
-              </li>
-            {{/each}}
-        </ul>
-
-        <form action="/newBoard" method="POST">
-            <div class="form-group">
-                <input type="text" name="board_name" placeholder="Add new board here" class="form-control">
-            </div>
-            <button type="submit">Add New board</button>
-        </form>
+<header>
+    <div class="navImage">
+      <i class="fas fa-atom"></i>
+      <img src="../assets/images/cricketlogo.png" height="75" width="75"/>
+      <p id="navCompName">TrL</p>
     </div>
+    <nav>
+      <ul>
+        <li><a href="../home">Home</a></li>
+      </ul>
+    </nav>
+</header>
+
+    <div class="taskPage">
+        <h2>{{boardName}}</h2>
+            <form action="/newlist/{{boardName}}" method="POST" class="form-inline">
+                <div class="form-group" style="width: 40%">
+                <input type="text" name="list_name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Add A New List">
+                </div>
+                <button class="btn btn-success mb-2 submitbtn" type="submit">Submit</button>
+            </form>
+    </div>
+
+
+    <section class="taskRow">
+    {{#if data}}
+    {{#each data}}
+        <div class="card" style="width: 19rem; margin: 2rem 1rem;">
+	        <h5 class="card-header">{{this.task_type}}
+                <button class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm2" onclick="createTask('{{this.task_type}}');" style="float:right;"> + </button>
+            </h5>
+                <ul class="list-group list-group-flush">
+                    {{#each this.tasks}}
+                        <li class="list-group-item">
+                            <div class="taskList">
+                                <button class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#task_{{this.id}}" type="button">{{this.task_title}}</button>
+                                    <div class="modal fade bd-example-modal-lg" id="task_{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header"><h5>{{task_title}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                        <p><h6>Priority: </h6>{{this.task_priority}}</p>
+                                                        <p><h6>Due Date: </h6>{{this.due_date}}</p>
+                                                        <p><h6>Assigned To: </h6>{{this.assigned_to}}</p>
+                                                        <p><h6>Description: </h6>{{this.task_description}}</p>
+                                                            <div>
+                                                                <form action="/updateTask/{{this.board_name}}/{{this.task_type}}/{{this.task_title}}" method="POST">
+                                                                    <select name="newListName" class="custom-select" id="inputGroupSelect01" style="width: 60%;">
+                                                                        {{#each ../../data}}
+                                                                            <option value="{{this.task_type}}">{{this.task_type}}</option>
+                                                                        {{/each}}
+                                                                    </select>
+                                                                    <button type="submit" class="btn btn-primary">Move Task</button>
+                                                                        <form action="/delete/{{this.board_name}}/{{this.id}}" method="POST">
+                                                                            <button type="submit" class="btn btn-danger" style="float: right;">DELETE TASK</button>
+                                                                        </form>
+                                                                </form>
+
+                                                            </div>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal --> 
+                            </div>
+                        </li>
+                    {{/each}}
+                </ul>  	        
+        </div> 
+             
+
+    {{/each}}
+	{{/if}}
+
+</section>
+
+<div class="modal fade bs-example-modal-sm2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h5>Create A New Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <form id="modalForm" action="/newTask/{{this.boardName}}" method="POST">
+                    <input type="hidden" id="task_type" name="task_type">
+                        <div class="form-group">
+                            <h6>Task Title: </h6><input type="text" name="task_title" placeholder="Enter a task title" class="form-control">
+                            <br>
+                            <h6>Priority: </h6><input type="number" name="task_priority" value=1 class="form-control">
+                            <br>
+                            <h6>Due Date: </h6><input type="datetime-local" name="task_dueDate" value="2019-01-01" min="2019-01-01" class="form-control">
+                            <br>
+                            <h6>Assign To: </h6><input type="text" name="assigned_to" placeholder="Assign this task to..." class="form-control">
+                            <br>
+                            <h6>Task Description: </h6><input type="text" name="task_description" placeholder="Add a more detailed description..." class="form-control">
+                            <br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="saveTask('{{this.task_type}}');">Save Task</button>
+                        </div>
+                    </form>
+                </p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+                            
+    
+<script>
+    function createTask(task_type){
+        console.log("hello world",task_type);
+        window.task_type = task_type;
+    }
+
+    function saveTask(){
+        console.log("hello world",window.task_type);
+        document.getElementById("task_type").value = window.task_type;
+        document.getElementById("modalForm").submit();
+    }
+
+
+</script>
+
+
+

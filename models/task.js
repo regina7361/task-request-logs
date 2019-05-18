@@ -2,22 +2,32 @@ let orm = require("../config/orm")
 
 let task = {
 
-    selectAll: function (board_name, callback) {
-        orm.selectAllTask(board_name,function(res){
-            //console.log ('burger.js', res);
+    selectTask: function (board, list, callback) {
+        orm.selectTask(board, list, function(res){
+
             callback(res);
         });
     },
-    // insertOne: function (board_name, callback) {
-    //     orm.insertOne(board_name, task, function(res){
-    //         callback(res);
-    //     });
-    // },
-    // updateOne: function (board_name, id, callback) {
-    //     orm.updateOne(board_name, id, function(res){
-    //         callback(res);
-    //     });
-    // }
+
+
+    insertTask: function (boardName, listName, task_title, task_priority, due_date, assigned_to, task_description, callback) {
+        orm.insertTask("tasks", boardName, listName, task_title, task_priority, due_date, assigned_to, task_description, function(res){
+            callback(res);
+        });
+    },
+
+    updateTask: function (boardName, listName, task_title, newListName, callback) {
+        orm.updateTask("tasks", boardName, listName, task_title, newListName, function(res){
+            callback(res);
+        });
+    },
+
+    deleteTask: function (id, callback) {
+        orm.deleteTask("tasks", id, function(res){
+            callback(res);
+        });
+    }
 }
+
 
 module.exports = task;

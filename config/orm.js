@@ -3,15 +3,33 @@ let connection = require("./connection")
 let orm = {
 
     //selectAll()
-    selectAllBoard: function (db, callback) {
-        connection.query('SELECT * FROM ' + db + ";", function (err, result) 
+    selectAll: function (table, callback) {
+        connection.query('SELECT * FROM ' + table + ";", function (err, result) 
         {
             if (err) throw err;
-            //console.log("orm", result)
             callback (result);
         });
     },
-    //insertOne()
+
+    //selectAllList()
+    selectList: function (board, callback) {
+        connection.query('SELECT * FROM lists WHERE board_name = "' + board +'";', function (err, result) 
+        {
+            if (err) throw err;
+            callback (result);
+        });
+    },
+
+    //selectAllTask()
+    selectTask: function (board, list, callback) {
+        connection.query('SELECT * FROM tasks WHERE board_name = "' + board +'" AND task_type = "' + list + '";', function (err, result) 
+        {
+            if (err) throw err;
+            callback (result);
+        });
+    },
+
+    //insertBoard()
     insertBorad: function (db, board_name, callback) {
         connection.query('INSERT INTO ' + db + ' SET ?;', 
         {
@@ -22,20 +40,61 @@ let orm = {
             callback(result);
         });
     },
-    //selectAll()
-    selectAllTask: function (db, callback) {
-        connection.query('SELECT * FROM ' + db + ";", function (err, result) 
+    //insertList()
+    insertList (db, boardName, listName, callback) {
+        connection.query('INSERT INTO ' + db + ' SET ?;', 
+        {   
+            board_name: boardName,
+            lists: listName
+        },function (err, result) 
         {
             if (err) throw err;
-            //console.log("orm", result)
-            callback (result);
+            callback(result);
         });
     },
-    //insertOne()
-    insertTask: function (db, task, callback) {
-        connection.query('INSERT INTO ' + db + ' SET ?;', 
+    //insertTask()
+    insertTask: function (db, boardName, listName, task_title, task_prioirty, due_date, assigned_to, task_description, callback) {
+        connection.query('INSERT INTO ' + db + ' SET ?, created_date = UTC_TIMESTAMP();', 
         {
-            task: task,
+            task_type:listName,
+            task_title: task_title,
+            task_priority: task_prioirty,
+            due_date: due_date,
+            assigned_to: assigned_to,
+            task_description: task_description,
+            board_name: boardName
+        },function (err, result) 
+        {
+            if (err) throw err;
+            callback(result);
+        });
+    },
+
+    //updateTask()
+    updateTask: function (db, boardName, listName, task_title, newListName, callback) {
+
+        connection.query('UPDATE ' + db + ' SET ? WHERE ? AND ? AND ?;', 
+        [{
+            task_type: newListName,
+        },{
+            task_type:listName
+        },{
+            task_title: task_title
+        },{
+            board_name: boardName
+        }],function (err, result) 
+        {
+            if (err) throw err;
+            callback(result);
+        });
+    },
+
+    //updateTask()
+    deleteTask: function (db, id, callback) {
+
+        connection.query('DELETE FROM ' + db + ' WHERE ?;', 
+        {
+            id: id
         },function (err, result) 
         {
             if (err) throw err;
