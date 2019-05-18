@@ -59,7 +59,10 @@ router.get('/board/:board_name', function (req,res){
             boardName: board,
             data: taskArray
         };
-        console.log(hbsOjectCompile);
+        // console.log(hbsObject);
+        for (let index = 0; index < hbsObject.data.length; index++) {
+            console.log(hbsObject.data[index].tasks);
+        }
         res.render ('index', hbsObject);
     };
 });
@@ -112,6 +115,5 @@ router.post('/delete/:board/:id', function (req, res){
         res.redirect(`/board/${boardName}`);
     });
 });
-
 
 module.exports = router;

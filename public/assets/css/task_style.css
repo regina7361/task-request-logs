@@ -16,6 +16,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
 
@@ -27,7 +29,11 @@
     display:flex;
     justify-content: space-between;
     color: white;
-    background: rgba(0,0,0,0.2)
+    background: rgba(0,0,0,0.2);
+    position: fixed;
+    right: 0px;
+    left: 0px;
+    background: rgba(44,37,180,1);
   }
   
   header div{
@@ -90,7 +96,7 @@
     text-align: center;
     width: 50vw;
     margin: 0 auto;
-    padding-top: 60px;
+    padding-top: 100px;
   }
   
   .titles h1{
@@ -98,12 +104,14 @@
     font-size: 4rem;
     margin-bottom: 0;
     text-shadow: 1px 1px 0 black;
+    letter-spacing: 6px;
   
   }
   
   .titles p{
     letter-spacing: 3px;
     text-shadow: 1px 1px 0 black;
+    font-size: 1.37rem;
   }
 
   .input-group {
@@ -129,14 +137,18 @@
   
   h2 {
     color: white;
-    text-align: center;
     width: 50vw;
-    margin: 0 auto;
+    margin-left: 2%;
     padding-top: 60px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 3rem;
     margin-bottom: 0;
     text-shadow: 1px 1px 0 black;
+  }
+
+  .box h3 {
+    text-align: center;
+    margin: 0 auto;
   }
 
   .container-boxes{
@@ -145,7 +157,6 @@
     display:flex;
     justify-content: space-around;
     align-items: flex-end;
-    max-width: 80vw;
   }
   
   .box{
@@ -155,7 +166,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 350px;
+    width: 200px;
     max-height: 180px;
     min-height: 180px;
     transition: all 250ms ease-out;
@@ -180,6 +191,7 @@
     text-transform: uppercase;
     letter-spacing: 4px;
     margin-bottom: 0;
+    text-align: center;
   }
   
   .text p{
@@ -197,6 +209,7 @@
   
   .taskPage {
     margin-left: 1rem;
+    margin-top: 5rem;
   }
   
   .taskPage h2{
@@ -207,6 +220,7 @@
     float: left;
     width: 40%;
     text-align: left;
+    margin-left: 0;
   }
 
   #inlineFormInputName2 {
@@ -327,6 +341,29 @@
     }
     .titles h1{
     font-size: 3rem;
+    }
+
+    .taskPage h2 {
+      width: 100%;
+      margin-left: 10%;
+    }
+
+    .form-inline {
+      flex-flow: row wrap;
+      align-items: center;
+    }
+
+    #inlineFormInputName2 {
+      margin-left: 20%;
+    }
+  
+
+    .submitbtn {
+      margin-top: 100px;
+    }
+
+    .container-boxes{
+      flex-wrap: wrap;
     }
   }
   

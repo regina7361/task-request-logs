@@ -17,7 +17,7 @@
                 <div class="form-group" style="width: 40%">
                 <input type="text" name="list_name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Add A New List">
                 </div>
-                <button class="btn btn-success mb-2" type="submit">Submit</button>
+                <button class="btn btn-success mb-2 submitbtn" type="submit">Submit</button>
             </form>
     </div>
 
@@ -33,8 +33,8 @@
                     {{#each this.tasks}}
                         <li class="list-group-item">
                             <div class="taskList">
-                                <button class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="showTask('{{task_title}}');">{{this.task_title}}</button>
-                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <button class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#task_{{this.id}}" type="button">{{this.task_title}}</button>
+                                    <div class="modal fade bd-example-modal-lg" id="task_{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header"><h5>{{task_title}}</h5>
@@ -121,10 +121,6 @@
         document.getElementById("modalForm").submit();
     }
 
-        function showTask(task_title){
-        console.log("hello world",window.task_title);
-        document.getElementById("task_title").value = window.task_title;
-    }
 
 </script>
 
